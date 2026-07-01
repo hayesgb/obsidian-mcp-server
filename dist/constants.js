@@ -1,9 +1,0 @@
-export const DEFAULT_PORT = 3333;
-export const DEFAULT_TRANSPORT = 'http';
-export const DEFAULT_LIST_LIMIT = 50;
-export const MAX_LIST_LIMIT = 200;
-export const DEFAULT_SEARCH_LIMIT = 20;
-export const MAX_SEARCH_LIMIT = 50;
-export const SNIPPET_LENGTH = 200;
-export const MCP_PATH = '/mcp';
-export const HEALTH_PATH = '/health';
