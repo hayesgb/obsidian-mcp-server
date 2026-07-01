@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.greg.obsidian-mcp-server</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/Users/ion/.nvm/versions/node/v24.14.0/bin/node</string>
+    <string>/Users/ion/projects/obsidian-mcp-server/dist/index.js</string>
+  </array>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>VAULT_PATH</key>
+    <string>/Users/ion/Documents/openclaw-vault</string>
+    <key>PORT</key>
+    <string>3333</string>
+    <key>TRANSPORT</key>
+    <string>http</string>
+  </dict>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>KeepAlive</key>
+  <true/>
+  <key>StandardErrorPath</key>
+  <string>/Users/ion/Library/Logs/obsidian-mcp-server.log</string>
+  <key>WorkingDirectory</key>
+  <string>/Users/ion/projects/obsidian-mcp-server</string>
+</dict>
+</plist>
