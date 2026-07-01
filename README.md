@@ -46,6 +46,9 @@ curl http://localhost:3333/health
 # {"status":"ok","vault":"/path/to/your/vault"}
 ```
 
+> Only run this if the launchd service (below) isn't already running — two
+> processes on the same `PORT` will conflict.
+
 ## Installing as a launchd Service (macOS)
 
 This runs the server automatically at login and restarts it if it crashes.
@@ -68,6 +71,52 @@ curl http://localhost:3333/health
 # View logs
 tail -f ~/Library/Logs/obsidian-mcp-server.log
 ```
+
+## Connecting Claude Desktop (local macOS)
+
+If the server is already running as a persistent `launchd` service (see above),
+**do not** let Claude Desktop spawn its own copy via `command: node`. Two
+processes binding the same `PORT` will collide and the second one will fail
+with `EADDRINUSE`.
+
+Instead, point Claude Desktop at the already-running HTTP server using
+[`mcp-remote`](https://www.npmjs.com/package/mcp-remote) as a stdio-to-HTTP
+bridge, in `~/Library/Application Support/Claude/claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "obsidian": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "http://localhost:3333/mcp"]
+    }
+  }
+}
+```
+
+Notes:
+
+- The endpoint path is `/mcp` (see `MCP_PATH` in `src/constants.ts`), not the
+  server root.
+- Don't set `VAULT_PATH`, `PORT`, or `TRANSPORT` in this config entry — those
+  belong solely to the launchd plist (the single source of truth for the
+  running instance's environment). Duplicating them in two places is how the
+  vault path casing drifted out of sync in the past.
+- After editing, fully quit and restart Claude Desktop (closing the window
+  isn't enough — it keeps the old MCP client connection alive).
+
+**Verifying there's only one instance running:**
+
+```bash
+ps aux | grep obsidian-mcp-server | grep -v grep   # should show exactly one PID
+lsof -i :3333                                       # should show exactly one LISTEN, owned by launchd
+curl -s http://localhost:3333/health                # {"status":"ok","vault":"..."}
+```
+
+If Claude Desktop's MCP panel shows a connection error or `EADDRINUSE` in
+`~/Library/Logs/obsidian-mcp-server.log`, a duplicate process is almost always
+the cause — check the config above hasn't reverted to spawning `node
+dist/index.js` directly.
 
 ## Connecting from Claude.ai (via Tailscale)
 
