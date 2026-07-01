@@ -7,13 +7,13 @@
   <string>com.greg.obsidian-mcp-server</string>
   <key>ProgramArguments</key>
   <array>
-    <string>/Users/ion/.nvm/versions/node/v24.14.0/bin/node</string>
-    <string>/Users/ion/projects/obsidian-mcp-server/dist/index.js</string>
+    <string>/Users/greghayes/.nvm/versions/node/v22.14.0/bin/node</string>
+    <string>/Users/greghayes/Documents/obsidian-mcp-server/dist/index.js</string>
   </array>
   <key>EnvironmentVariables</key>
   <dict>
     <key>VAULT_PATH</key>
-    <string>/Users/ion/Documents/openclaw-vault</string>
+    <string>/Users/greghayes/Documents/personal-wiki</string>
     <key>PORT</key>
     <string>3333</string>
     <key>TRANSPORT</key>
@@ -24,8 +24,8 @@
   <key>KeepAlive</key>
   <true/>
   <key>StandardErrorPath</key>
-  <string>/Users/ion/Library/Logs/obsidian-mcp-server.log</string>
+  <string>/Users/greghayes/Library/Logs/obsidian-mcp-server.log</string>
   <key>WorkingDirectory</key>
-  <string>/Users/ion/projects/obsidian-mcp-server</string>
+  <string>/Users/greghayes/Documents/obsidian-mcp-server</string>
 </dict>
 </plist>
